@@ -20,6 +20,8 @@
      <#imports>
      <#prov>
      <#scheme>
+     <#schema>
+     <#crosswalk>
    ) .
 
 # TDB
@@ -142,3 +144,38 @@ tdb:GraphTDB    rdfs:subClassOf  ja:Model .
     # Query timeout on this dataset (1s, 1000 milliseconds)
     # ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
     .
+
+<#schema>  rdf:type fuseki:Service ;
+    fuseki:name                   "schema" ;       # http://host:port/search
+    fuseki:dataset           <#schema_dataset> ; 
+    fuseki:serviceQuery           "sparql" ;     # http://host:port/search/sparql?query=...
+    fuseki:serviceUpdate          "update" ;     # http://host:port/core/update?query=...
+	fuseki:serviceReadWriteGraphStore    "data" ; # http://host:port/core/data?query=...
+    fuseki:serviceUpload          "upload" ;     # http://host:post/core/upload?graph="any"
+	fuseki:serviceReadGraphStore  "get" ;        # http://host:post/core/get?graph=default
+	.
+	
+<#schema_dataset> rdf:type tdb:DatasetTDB ;
+    tdb:location "/fuseki/databases/SCHEMA_TDB" ;
+    tdb:unionDefaultGraph   true ;
+    # Query timeout on this dataset (1s, 1000 milliseconds)
+    # ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
+    .
+
+<#crosswalk>  rdf:type fuseki:Service ;
+    fuseki:name                   "crosswalk" ;       # http://host:port/search
+    fuseki:dataset           <#crosswalk_dataset> ; 
+    fuseki:serviceQuery           "sparql" ;     # http://host:port/search/sparql?query=...
+    fuseki:serviceUpdate          "update" ;     # http://host:port/core/update?query=...
+	fuseki:serviceReadWriteGraphStore    "data" ; # http://host:port/core/data?query=...
+    fuseki:serviceUpload          "upload" ;     # http://host:post/core/upload?graph="any"
+	fuseki:serviceReadGraphStore  "get" ;        # http://host:post/core/get?graph=default
+	.
+	
+<#crosswalk_dataset> rdf:type tdb:DatasetTDB ;
+    tdb:location "/fuseki/databases/CROSSWALK_TDB" ;
+    tdb:unionDefaultGraph   true ;
+    # Query timeout on this dataset (1s, 1000 milliseconds)
+    # ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
+    .
+
